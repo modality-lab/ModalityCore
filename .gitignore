@@ -1,0 +1,39 @@
+# OS X
+.DS_Store
+.obsidian
+
+
+# Windows
+desktop.ini
+
+# Xcode
+build/
+*.pbxuser
+xcuserdata/
+*.xccheckout
+DerivedData
+*.ipa
+
+# Bundler
+.bundle
+
+# AppCode
+.idea
+!.idea/codeStyleSettings.xml
+
+# Tuist
+graph.png
+Tuist/Dependencies/graph.json
+
+# Logs
+Build-Phases/temp/
+
+# SPM
+**/.build
+.swiftpm/
+Package.resolved
+
+*__Snapshots__*
+
+
+.vscode/settings.json
