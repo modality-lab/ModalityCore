@@ -1,6 +1,5 @@
 import SwiftUI
  
-// TODO: Put things in order
 extension Color {
   public static let cursorColor = Color(hue: 0.1, saturation: 0.8, brightness: 1)
   public static let primaryPurple = Color(hue: 0.732, saturation: 0.716, brightness: 0.851)
@@ -23,28 +22,6 @@ extension Color {
   public static let lateNote =    Color(red: 235 / 255, green: 215 / 255, blue: 10 / 255)
   public static let earlyNote =   Color(red: 255 / 255, green: 159 / 255, blue: 50 / 255)
   public static let missedNote =  Color(red: 230 / 255, green: 60 / 255,  blue: 60 / 255)
-}
-
-public enum TextColors {
-//  public static let primary = Color.mintCream.opacity(0.9)
-//  public static let secondary = Color.gray.opacity(0.7)
-//  public static let disabled = Color.mintCream.opacity(0.1)
-//  
-//  public static let chartAxis = primary
-//  public static let chartLegend = secondary
-//  public static let chartLabels = secondary
-}
-
-public enum PrimaryColors {
-  
-}
-
-public enum AccentColors {
-  
-}
-
-public enum SemanticColors {
-  
 }
 
 public enum VioletPalette {

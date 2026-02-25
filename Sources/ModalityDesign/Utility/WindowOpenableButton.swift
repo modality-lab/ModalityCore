@@ -7,12 +7,6 @@ public struct WindowID: Sendable, RawRepresentable, Hashable {
   public init(rawValue: String) {
     self.rawValue = rawValue
   }
-  
-  // MARK: - App Windows
-  // TODO: Move to Domain
-  public static let fretboard = WindowID(rawValue: "Fretboard")
-  public static let pitchTimeline = WindowID(rawValue: "PitchTimeline")
-  public static let spiralOfFifthsInfo = WindowID(rawValue: "SoFInfo")
 }
 
 public struct WindowOpenableButton<Label: View, WindowContent: View>: View {
@@ -82,9 +76,6 @@ fileprivate extension View {
     let controller = NSHostingController(rootView: self)
     let window = NSWindow(contentViewController: controller)
     window.contentViewController = controller
-//    if let title {
-//      window.title = nil
-//    }
     window.makeKeyAndOrderFront(sender)
     window.delegate = windowClosingDelegate
     window.styleMask = [.miniaturizable, .closable, .titled, .fullSizeContentView, .resizable]

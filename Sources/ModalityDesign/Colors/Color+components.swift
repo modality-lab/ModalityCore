@@ -23,7 +23,6 @@ extension Color {
     NativeColor(self)
 #if os(macOS)
       .usingColorSpace(.sRGB)?
-//      .usingColorSpace(.deviceRGB)?
 #endif
       .getRed(&r, green: &g, blue: &b, alpha: &a)
     

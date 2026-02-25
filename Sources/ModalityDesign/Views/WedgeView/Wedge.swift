@@ -24,7 +24,6 @@ extension Ring {
       }
     }
     
-    // TODO: refactor id
     public var id: String
 
     public private(set) var color: Color
@@ -79,11 +78,9 @@ extension Ring.Wedge {
   
   var edgeColor: Color {
     color.opacity(0.95)
-//    Color(hue: hue, saturation: 0.6, brightness: 0.65, opacity: 0.8)
   }
 
   var centerColor: Color {
     color
-//    Color(hue: hue, saturation: 0.6, brightness: 0.7, opacity: 0.8)
   }
 }

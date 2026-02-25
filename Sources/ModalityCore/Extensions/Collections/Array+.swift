@@ -21,12 +21,12 @@ extension Array: @retroactive RawRepresentable where Element: Codable {
 }
 
 extension Array {
-  public func max<Value: Comparable>(_ ketPath: KeyPath<Element, Value>) -> Value? {
-    self.max(by: { $0[keyPath: ketPath] < $1[keyPath: ketPath] })?[keyPath: ketPath]
+  public func max<Value: Comparable>(_ keyPath: KeyPath<Element, Value>) -> Value? {
+    self.max(by: { $0[keyPath: keyPath] < $1[keyPath: keyPath] })?[keyPath: keyPath]
   }
-  
-  public func min<Value: Comparable>(_ ketPath: KeyPath<Element, Value>) -> Value? {
-    self.min(by: { $0[keyPath: ketPath] < $1[keyPath: ketPath] })?[keyPath: ketPath]
+
+  public func min<Value: Comparable>(_ keyPath: KeyPath<Element, Value>) -> Value? {
+    self.min(by: { $0[keyPath: keyPath] < $1[keyPath: keyPath] })?[keyPath: keyPath]
   }
 }
 
@@ -61,7 +61,6 @@ extension Array where Element: BinaryFloatingPoint {
 
 extension Array {
   
-  // TODO: Optimize
   public func average<Value: BinaryFloatingPoint>(_ keyPath: KeyPath<Element, Value>) -> Value {
     map { $0[keyPath: keyPath] }.average
   }

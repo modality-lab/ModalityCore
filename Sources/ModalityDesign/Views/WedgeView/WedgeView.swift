@@ -54,7 +54,6 @@ public struct WedgeView<Content: Equatable & Hashable>: View {
       return shape
         .subtracting(shape.stroke(style: StrokeStyle(lineWidth: 4, lineCap: .butt, lineJoin: .round)))
     } else {
-      // TODO: Implement fallback
       return shape
     }
   }

@@ -3,7 +3,7 @@ import SwiftMusicTheory
 import Foundation
 import Testing
 
-final class ApproximateComapissonTests {
+final class ApproximateComparisonTests {
   
   @Test
   func approximateComapissonTests() async throws {
