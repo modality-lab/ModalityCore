@@ -11,7 +11,7 @@ extension Double {
   }
   
   public var f6: String {
-    formatted()
+    formatted(6)
   }
   
   public func formatted(_ decimalPlaces: Int = 6) -> String {

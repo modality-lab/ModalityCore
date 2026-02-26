@@ -32,45 +32,27 @@ extension Array {
 
 // MARK: - Statistical Functions
 extension Array where Element: BinaryFloatingPoint {
-  
-  public var average: Element {
-    guard !isEmpty else { return 0 }
-    return sum / Element(count)
-  }
-  
-  public var median: Element {
-    guard !isEmpty else { return 0 }
-    let sorted = self.sorted()
-    let count = sorted.count
-    
-    if count % 2 == 0 {
-      // Even number of elements - average of two middle values
-      let mid1 = sorted[count / 2 - 1]
-      let mid2 = sorted[count / 2]
-      return (mid1 + mid2) / 2
-    } else {
-      // Odd number of elements - middle value
-      return sorted[count / 2]
-    }
-  }
-  
-  public var sum: Element {
-    reduce(0, +)
-  }
+  public var average: Element { average(\.self) }
+  public var median: Element { median(\.self) }
+  public var sum: Element { sum(\.self) }
 }
 
 extension Array {
   
   public func average<Value: BinaryFloatingPoint>(_ keyPath: KeyPath<Element, Value>) -> Value {
-    map { $0[keyPath: keyPath] }.average
+    guard !isEmpty else { return 0 }
+    return sum(keyPath) / Value(count)
   }
   
   public func median<Value: BinaryFloatingPoint>(_ keyPath: KeyPath<Element, Value>) -> Value {
-    map { $0[keyPath: keyPath] }.median
+    guard !isEmpty else { return 0 }
+    let sorted = lazy.map { $0[keyPath: keyPath] }.sorted()
+    let mid = count / 2
+    return count.isMultiple(of: 2) ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid]
   }
   
   public func sum<Value: BinaryFloatingPoint>(_ keyPath: KeyPath<Element, Value>) -> Value {
-    map { $0[keyPath: keyPath] }.sum
+    reduce(0) { $0 + $1[keyPath: keyPath] }
   }
 }
 

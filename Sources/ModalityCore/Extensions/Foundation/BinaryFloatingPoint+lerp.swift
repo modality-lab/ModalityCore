@@ -18,7 +18,7 @@ public extension BinaryInteger {
 
 public extension Double {
   func normalize(from min: Self = 0, to max: Self) -> Self {
-    guard min < max else { return -1 }
+    guard min != max else { return .nan }
     
     return (self - min) / (max - min)
   }

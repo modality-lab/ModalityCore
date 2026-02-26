@@ -8,7 +8,12 @@ public struct SettingsGearButton<Label: View, SettingsView: View>: View {
   @Environment(\.dismiss) var dismiss
   
   public init(
-    @ViewBuilder label: @escaping () -> Label,
+    @ViewBuilder label: @escaping () -> Label = {
+      Image(systemName: "gear")
+        .resizable()
+        .frame(width: 24, height: 24)
+        .padding(16)
+    },
     @ViewBuilder settingsView: @escaping () -> SettingsView
   ) {
     self.label = label
@@ -16,26 +21,29 @@ public struct SettingsGearButton<Label: View, SettingsView: View>: View {
   }
   
   public var body: some View {
+    Group {
 #if os(macOS)
-    if #available(macOS 14.0, *) {
-      SettingsLink(label: label)
-    } else {
+      if #available(macOS 14.0, *) {
+        SettingsLink(label: label)
+      } else {
+        Button(
+          action: {
+            if Selector("showSettingsWindow:").sendToApp() { return }
+            if Selector("showPreferencesWindow:").sendToApp() { return }
+          },
+          label: label
+        )
+      }
+#else
       Button(
-        action: {
-          if Selector("showSettingsWindow:").sendToApp() { return }
-          if Selector("showPreferencesWindow:").sendToApp() { return }
-        },
+        action: { isSettingsPresented = true },
         label: label
       )
-    }
-#else
-    Button(
-      action: { isSettingsPresented = true },
-      label: label
-    )
-    .sheet(isPresented: $isSettingsPresented) {
-      settingsView()
-    }
+      .sheet(isPresented: $isSettingsPresented) {
+        settingsView()
+      }
 #endif
+    }
+    .buttonStyle(.plain)
   }
 }
