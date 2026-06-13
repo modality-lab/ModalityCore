@@ -98,6 +98,9 @@ public struct RoundedCornersRectangle: Shape {
     path.closeSubpath()
     return path
   }
+
+  /// Framework-neutral `CGPath` for CALayer/CGContext renderers.
+  public func cgPath(in rect: CGRect) -> CGPath { path(in: rect).cgPath }
 }
 
 #Preview {

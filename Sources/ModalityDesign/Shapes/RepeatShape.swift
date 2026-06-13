@@ -55,9 +55,12 @@ public struct RepeatShape: Shape {
       width: dotDiameter,
       height: dotDiameter
     ))
-    
+
     return path
   }
+
+  /// Framework-neutral `CGPath` for CALayer/CGContext renderers.
+  public func cgPath(in rect: CGRect) -> CGPath { path(in: rect).cgPath }
 }
 
 #if DEBUG
