@@ -200,8 +200,10 @@ private final class MacDisplayFrameSampler: DisplayFrameSampling {
 }
 
 private final class MacDisplayLinkCallbackTarget: @unchecked Sendable {
+  private let lock = NSLock()
   private let displayHz: Double
   private let onFrame: @MainActor (TimeInterval, Double) -> Void
+  private var isFrameDeliveryPending = false
 
   init(displayHz: Double, onFrame: @escaping @MainActor (TimeInterval, Double) -> Void) {
     self.displayHz = displayHz
@@ -209,11 +211,34 @@ private final class MacDisplayLinkCallbackTarget: @unchecked Sendable {
   }
 
   func displayLinkDidFire() {
-    let timestamp = ProcessInfo.processInfo.systemUptime
+    guard markFrameDeliveryPending() else { return }
 
-    Task { @MainActor [displayHz, onFrame] in
-      onFrame(timestamp, displayHz)
+    Task { @MainActor [weak self] in
+      self?.deliverFrameOnMainActor()
     }
+  }
+
+  private func markFrameDeliveryPending() -> Bool {
+    lock.lock()
+    defer { lock.unlock() }
+
+    guard !isFrameDeliveryPending else { return false }
+
+    isFrameDeliveryPending = true
+    return true
+  }
+
+  @MainActor
+  private func deliverFrameOnMainActor() {
+    let timestamp = ProcessInfo.processInfo.systemUptime
+    onFrame(timestamp, displayHz)
+    clearFrameDeliveryPending()
+  }
+
+  private func clearFrameDeliveryPending() {
+    lock.lock()
+    isFrameDeliveryPending = false
+    lock.unlock()
   }
 }
 #endif
