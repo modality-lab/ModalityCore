@@ -61,9 +61,12 @@ public struct PlayheadShape: Shape {
     path.addLine(to: CGPoint(x: lineRight, y: lineBottom))
     path.addLine(to: CGPoint(x: lineLeft, y: lineBottom))
     path.closeSubpath()
-    
+
     return path
   }
+
+  /// Framework-neutral `CGPath` for CALayer/CGContext renderers.
+  public func cgPath(in rect: CGRect) -> CGPath { path(in: rect).cgPath }
 }
 
 #Preview {
